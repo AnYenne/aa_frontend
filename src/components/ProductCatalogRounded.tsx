@@ -197,18 +197,17 @@ const ProductCatalogRounded = ({
             </div>
 
             <div className="relative mt-12">
-                <ul className="flex flex-row justify-start items-center w-full overflow-hidden">
+                <ul className="flex flex-row justify-start items-center w-full overflow-hidden -mt-12">
                     {children ||
                         mockApi.Data.data.map((product) => {
                             return (
-                                <li className="rounded-full">
+                                <li className="">
                                     <ProductCardPrice
                                         size={size}
                                         id={product.id}
                                         name={product.name}
                                         price={product.price}
                                         src={product.images}
-                                        radius="rounded-full"
                                     />
                                 </li>
                             );

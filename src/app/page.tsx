@@ -950,10 +950,6 @@ export default function Home() {
                     size="w-60"
                     title="Sản phẩm mới"
                 ></ProductCatalogRounded>
-                <ProductCatalogRounded
-                    size="w-60"
-                    title="sản phẩm được tìm kiếm gần đây"
-                ></ProductCatalogRounded>
 
                 <ShowBannerWithProduct />
                 <ProductCatalogRounded

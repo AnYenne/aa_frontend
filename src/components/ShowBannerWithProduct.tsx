@@ -971,7 +971,7 @@ ${catalogy.id === 1 ? "row-start-1 row-span-2 h-full object-contain " : ""}
             <div className="absolute top-[500px] overflow-hidden w-full bg-white ">
                 <ProductCatalogRounded
                     classNames="h-[400px]"
-                    size="w-40"
+                    size="w-60"
                     title="đá màu"
                 ></ProductCatalogRounded>
             </div>

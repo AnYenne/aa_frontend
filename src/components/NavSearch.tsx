@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 
 const NavSearch = () => {
     return (
-        <div className=" flex items-center w-full lg:max-w-screen-lg bg-gray-200 rounded-xl">
+        <div className=" flex items-center w-full lg:max-w-screen-lg bg-transparent rounded-e-none border-b border-gray-300 ">
             <input
                 type="text"
                 placeholder="Tìm kiếm sản phẩm"
-                className="flex-grow flex-1 bg-transparent h-full w-full p-2 border-transparent outline-transparent text-xl text-yellow-900"
+                className=" focus:border-b focus:border-gray-300 flex-grow flex-1 bg-transparent h-full w-full p-2 border-transparent outline-transparent text-xl text-yellow-900"
             ></input>
             <Button className="bg-yellow-900 hover:opacity-75 hover:bg-yellow-900 ">
                 <div className="flex flex-row items-center justify-between px-3">

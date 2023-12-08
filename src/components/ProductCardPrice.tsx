@@ -22,18 +22,14 @@ const ProductCardPrice = ({
     return (
         <div
             className={cn(
-                `flex flex-col justify-center items-stretch max-w-60 rounded-md pl-6 ml-0 m-6`,
+                `flex flex-col justify-center items-stretch max-w-60 rounded-md min-w-[60px]  ml-0 m-2 w-full bg-gradient-to-b from-transparent to-slate-100 bg-opacity-30 `,
                 size
             )}
         >
             <div className={cn("w-full lg:min-w-full", radius)}>
-                <img
-                    className={cn("bg-gray-100", radius)}
-                    src={src}
-                    title={name}
-                ></img>
+                <img className={cn("", radius)} src={src} title={name}></img>
             </div>
-            <p className="h-fit min-h-[40px] capitalize text-lg font-semibold mt-4 ">
+            <p className="h-fit min-h-[40px] capitalize text-base font-semibold mt-4 ">
                 {name}
             </p>
             <p className="min-h-[40px] text-yellow-900 font-semibold text-lg ">

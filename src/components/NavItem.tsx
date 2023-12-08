@@ -13,6 +13,12 @@ function NavItem() {
             <Button className="" variant="ghost">
                 <div className="flex flex-col items-center">
                     <Icons.account />
+                    <p className="text-xs">Tài Khoản</p>
+                </div>
+            </Button>
+            {/* <Button className="" variant="ghost">
+                <div className="flex flex-col items-center">
+                    <Icons.account />
                     <p className="text-xs">Đăng nhập</p>
                 </div>
             </Button>
@@ -21,9 +27,9 @@ function NavItem() {
                     <Icons.signUp />
                     <p className="text-xs">Đăng ký</p>
                 </div>
-            </Button>
+            </Button> */}
 
-            <Button className="" variant="ghost">
+            <Button className="-mr-4" variant="ghost">
                 <div className="flex flex-col items-center">
                     <Icons.cart />
                     <p className="text-xs">Giỏ hàng (100)</p>

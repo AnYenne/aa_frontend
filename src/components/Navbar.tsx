@@ -18,10 +18,10 @@ const Navbar = () => {
                                     <Icons.logo className="h-full w-16" />
                                 </Link>
                             </div>
-                            <div className="hidden z-50 lg:ml-8 lg:w-7/12 lg:block lg:self-center">
+                            <div className="hidden z-50 lg:ml-8 lg:w-7/12 lg:block lg:self-center max-w-[600px]">
                                 <NavSearch />
                             </div>
-                            <div className="hidden z-50 lg:block ">
+                            <div className="hidden z-50 lg:block  ">
                                 <NavItems />
                             </div>
                         </div>
