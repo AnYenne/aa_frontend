@@ -1,8 +1,10 @@
+"use client";
 import { Subtitles } from "lucide-react";
 import { Icons } from "./Icons";
 import { Button } from "./ui/button";
 import ProductCardPrice from "@/components/ProductCardPrice";
 import { cn } from "@/lib/utils";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 const mockApi = {
     Code: 200,
@@ -178,6 +180,67 @@ const ProductCatalogRounded = ({
     subTitle,
     size,
 }: ProductCatalogRoundedProps) => {
+    const parentDiv = useRef<HTMLDivElement | null>(null);
+    const lists = useRef<HTMLDivElement | null>(null);
+    const [translate, setTranslate] = useState(0);
+    const [space, setSpace] = useState(0);
+    const [disableLeft, setDisableLeft] = useState(true);
+    const [disableRight, setDisableRight] = useState(false);
+
+    const handleNext = () => {
+        console.log("width:" + lists.current.scrollWidth);
+        console.log("div" + parentDiv.current?.clientWidth);
+        console.log("translate" + translate);
+        console.log("space" + space);
+
+        if (lists.current.scrollWidth - parentDiv.current?.clientWidth !== 0) {
+            if (space >= parentDiv.current?.clientWidth) {
+                setTranslate((pre) => pre + parentDiv.current?.clientWidth);
+            } else {
+                setTranslate((pre) => pre + space);
+            }
+        } else {
+            setTranslate(0);
+        }
+    };
+    const handleBack = () => {
+        console.log("width:" + lists.current.scrollWidth);
+        console.log("div" + parentDiv.current?.clientWidth);
+        console.log("translate" + translate);
+        console.log("space" + space);
+
+        if (lists.current.scrollWidth - parentDiv.current?.clientWidth !== 0) {
+            if (translate <= parentDiv.current?.clientWidth) {
+                setTranslate(0);
+            } else if (translate > parentDiv.current?.clientWidth) {
+                setTranslate((pre) => pre - parentDiv.current?.clientWidth);
+            }
+        } else {
+            setTranslate(0);
+        }
+    };
+
+    useLayoutEffect(() => {
+        setSpace(
+            lists.current.scrollWidth -
+                parentDiv.current?.clientWidth -
+                translate
+        );
+        if (
+            translate ===
+            lists.current.scrollWidth - parentDiv.current?.clientWidth
+        ) {
+            setDisableRight(true);
+            setDisableLeft(false);
+        } else if (translate === 0) {
+            setDisableLeft(true);
+            setDisableRight(false);
+        } else {
+            setDisableLeft(false);
+            setDisableRight(false);
+        }
+    }, [translate, space]);
+
     return (
         <div
             className={cn(
@@ -196,8 +259,18 @@ const ProductCatalogRounded = ({
                 )}
             </div>
 
-            <div className="relative mt-12">
-                <ul className="flex flex-row justify-start items-center w-full overflow-hidden -mt-12">
+            <div
+                className="relative mt-12 overflow-hidden w-full"
+                ref={parentDiv}
+            >
+                <ul
+                    style={{
+                        transition: "transform 2s",
+                        transform: ` translateX(-${translate}px)`,
+                    }}
+                    className="flex flex-row justify-start items-center w-fit -mt-12"
+                    ref={lists}
+                >
                     {children ||
                         mockApi.Data.data.map((product) => {
                             return (
@@ -214,18 +287,40 @@ const ProductCatalogRounded = ({
                         })}
                 </ul>
                 <div className="absolute top-1/2 -translate-y-full flex flex-row  w-full items-center justify-between ">
-                    <Button
-                        className="rounded-full p-0 w-[60px] h-[60px] bg-gray-50 hover:bg-gray-300 m-2"
-                        variant="ghost"
-                    >
-                        <Icons.arrowLeft />
-                    </Button>
-                    <Button
-                        className="rounded-full p-0 w-[60px] h-[60px] bg-gray-50 hover:bg-gray-300 m-2"
-                        variant="ghost"
-                    >
-                        <Icons.arrowRight />
-                    </Button>
+                    {(disableLeft && (
+                        <Button
+                            className="rounded-full p-0 w-[60px] h-[60px] bg-gray-50 user-select:none opacity-30"
+                            variant="ghost"
+                            onClick={handleBack}
+                        >
+                            <Icons.arrowLeft />
+                        </Button>
+                    )) || (
+                        <Button
+                            className="rounded-full p-0 w-[60px] h-[60px] bg-gray-50 hover:bg-gray-300 m-2"
+                            variant="ghost"
+                            onClick={handleBack}
+                        >
+                            <Icons.arrowLeft />
+                        </Button>
+                    )}
+                    {(disableRight && (
+                        <Button
+                            className="rounded-full p-0 w-[60px] h-[60px] user-select:none opacity-30"
+                            variant="ghost"
+                            onClick={handleNext}
+                        >
+                            <Icons.arrowRight />
+                        </Button>
+                    )) || (
+                        <Button
+                            className="rounded-full p-0 w-[60px] h-[60px] bg-gray-50 hover:bg-gray-300 m-2"
+                            variant="ghost"
+                            onClick={handleNext}
+                        >
+                            <Icons.arrowRight />
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>
