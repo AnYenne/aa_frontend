@@ -97,6 +97,7 @@ const ModalAccount = ({ activeModal, close }: ModalAccountProps) => {
                             </CardContent>
                             <CardFooter className="">
                                 <Button className="">Đăng Nhập</Button>
+                                <Button variant="ghost">quên mật khẩu</Button>
                             </CardFooter>
                         </Card>
                     </TabsContent>
@@ -161,7 +162,6 @@ const ModalAccount = ({ activeModal, close }: ModalAccountProps) => {
                             </CardContent>
                             <CardFooter className="flex flex-row justify-between items-center">
                                 <Button>Đăng ký</Button>
-                                <Button variant="ghost">quên mật khẩu</Button>
                             </CardFooter>
                         </Card>
                     </TabsContent>
