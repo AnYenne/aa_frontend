@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
-import Link from "next/link";
 
 const Signin = () => {
     return (
@@ -61,12 +60,12 @@ const Signin = () => {
                                 <Button className="">Đăng Nhập</Button>
                                 <Button variant="ghost">quên mật khẩu</Button>
                             </div>
-                            <div class="flex items-center justify-center space-x-2">
-                                <div class="bg-gray-300 h-px flex-1"></div>
-                                <span class="text-gray-500 text-sm px-2">
+                            <div className="flex items-center justify-center space-x-2">
+                                <div className="bg-gray-300 h-px flex-1"></div>
+                                <span className="text-gray-500 text-sm px-2">
                                     Hoặc đăng nhập bằng
                                 </span>
-                                <div class="bg-gray-300 h-px flex-1"></div>
+                                <div className="bg-gray-300 h-px flex-1"></div>
                             </div>
                             <div className="flex flex-col w-full my-2">
                                 <Button
