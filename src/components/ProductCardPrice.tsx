@@ -29,7 +29,7 @@ const ProductCardPrice = ({
             <div className={cn("w-full lg:min-w-full", radius)}>
                 <img className={cn("", radius)} src={src} title={name}></img>
             </div>
-            <p className="h-fit min-h-[40px] capitalize text-base font-semibold mt-4 ">
+            <p className="h-fit min-h-[40px] capitalize text-base font-semibold mt-4  ">
                 {name}
             </p>
             <p className="min-h-[40px] text-yellow-900 font-semibold text-lg ">

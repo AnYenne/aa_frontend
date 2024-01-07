@@ -205,6 +205,50 @@ const Signup = () => {
                                                     placeholder="Họ và tên"
                                                 />
                                             </div>
+                                            <div className="space-y-1 py-0.5 flex flex-row justify-between items-center">
+                                                <form className="flex flex-row  ">
+                                                    <input
+                                                        type="radio"
+                                                        id="male"
+                                                        name="fav_language"
+                                                        value="male"
+                                                        className="cursor-pointer"
+                                                    />
+                                                    <label
+                                                        htmlFor="male"
+                                                        className="mr-6 ml-2"
+                                                    >
+                                                        Nam
+                                                    </label>
+                                                    <input
+                                                        type="radio"
+                                                        id="female"
+                                                        name="fav_language"
+                                                        value="female"
+                                                        className="cursor-pointer"
+                                                    />
+
+                                                    <label
+                                                        htmlFor="female"
+                                                        className="mr-6 ml-2"
+                                                    >
+                                                        Nữ
+                                                    </label>
+                                                    <input
+                                                        type="radio"
+                                                        id="other"
+                                                        name="fav_language"
+                                                        value="other"
+                                                        className="cursor-pointer"
+                                                    />
+                                                    <label
+                                                        htmlFor="other"
+                                                        className="mr-6 ml-2"
+                                                    >
+                                                        Khác
+                                                    </label>
+                                                </form>
+                                            </div>
                                             <div className="space-y-1 py-0.5">
                                                 <Label htmlFor="phonenumber"></Label>
                                                 <Input
@@ -213,6 +257,7 @@ const Signup = () => {
                                                     placeholder="Số điện thoại"
                                                 />
                                             </div>
+
                                             <div className="space-y-1 py-0.5">
                                                 <Label htmlFor="email"></Label>
                                                 <Input
