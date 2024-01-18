@@ -84,7 +84,7 @@ const Footer = () => {
             <div className="mt-10 pt-6 border-t-2 ">
                 <div
                     className={cn(
-                        `bg-white grid grid-cols-5 grid-rows-3 h-fit `
+                        `bg-white grid grid-cols-3 grid-rows-1 h-fit `
                     )}
                 >
                     <div className="">
@@ -147,13 +147,14 @@ const Footer = () => {
                         alt="logo"
                         src="https://cdn.pnj.io/images/logo/pnj.com.vn.png"
                     ></img>
-                    <p
-                        className="text-yellow-900 text-center uppercase font-medium   
-                    col-start-1 col-span-5 row-span-3 row-start-3 "
-                    >
+                </div>
+                <div className="w-full ">
+                    <p className="text-yellow-900 text-center uppercase font-medium w-full">
                         © 2017 Công Ty Cổ Phần A&A 170E Phan Đăng Lưu, P.3,
-                        Q.Phú Nhuận, TP.Hồ Chí Minh ĐT: 030000000 - Fax:
-                        02800212122
+                        Q.Phú Nhuận, TP.Hồ Chí Minh
+                    </p>
+                    <p className="text-yellow-900 text-center uppercase font-medium w-full">
+                        ĐT: 030000000 - Fax: 02800212122
                     </p>
                 </div>
             </div>
