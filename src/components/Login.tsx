@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 import { useEffect, useRef, useState } from "react";
 import Validation from "@/components//Validate";
+import axios from "axios";
 
 const Login = () => {
     const [username, setUsername] = useState("");
@@ -16,11 +17,29 @@ const Login = () => {
     console.log(username, password);
 
     useEffect(() => {
-        const handleSubmit = (e) => {
-            e.preventDefault();
+        const handleLogin = async () => {
+            try {
+                const response = await axios.post(
+                    "http://localhost:8002/v1/auth/login",
+                    {
+                        username,
+                        password,
+                    }
+                );
+
+                // Xử lý response từ server, ví dụ: lưu token vào local storage.
+                console.log(response.data);
+            } catch (error) {
+                // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi.
+                console.error("Login failed", error);
+            }
         };
     });
-   
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
     return (
         <MaxWidthWrapper>
             <div className="mx-auto w-full  sm:py-12 xl:py-20 lg:py-20 max-w-screen-xl text-center flex flex-col items-center">
@@ -86,7 +105,12 @@ const Login = () => {
                                 </form>
                             </div>
                             <div className="flex flex-row justify-between items-center my-6">
-                                <Button className="">Đăng Nhập</Button>
+                                <Button
+                                    className=""
+                                    onClick={() => handleSubmit()}
+                                >
+                                    Đăng Nhập
+                                </Button>
                                 <Button variant="ghost">quên mật khẩu</Button>
                             </div>
                             <div className="flex items-center justify-center space-x-2">
