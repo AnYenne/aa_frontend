@@ -4,20 +4,20 @@ import { Icons } from "./Icons";
 import AddressPage from "@/app/user/address/page";
 import { Interface } from "readline";
 
-interface ModalUpdateProps {
+interface ModalNewProps {
     toggleClose: any;
-    data: any;
+    data:any
 }
 
-const ModalUpdateAddress = ({ toggleClose, data }: ModalUpdateProps) => {
+const ModalNewAddress = ({ toggleClose, data }: ModalNewProps) => {
     const [animate, setAnimate] = useState("top-center");
-    const [isName, setName] = useState(data.name);
-    const [isPhone, setPhone] = useState(data.phone);
-    const [isStreet, setStreet] = useState(data.street);
-    const [isCity, setCity] = useState(data.city);
-    const [isId, setId] = useState(data.id);
-    const [isDefault, setIsDefault] = useState(data.isDefault);
-    const [isUserid, setUserId] = useState(data.user);
+    const [isName, setName] = useState("");
+    const [isPhone, setPhone] = useState("");
+    const [isStreet, setStreet] = useState("");
+    const [isCity, setCity] = useState("");
+    const [isId, setId] = useState("");
+    const [isDefault, setIsDefault] = useState(false);
+    const [isUserid, setUserId] = useState();
 
     useEffect(() => {
         document.body.style.overflow = "hidden";
@@ -30,12 +30,12 @@ const ModalUpdateAddress = ({ toggleClose, data }: ModalUpdateProps) => {
         };
     }, [animate]);
 
-    const handleUpdate = (data: any) => {
+    const handleAdd = (data: any) => {
         console.log(data);
-        var apiUpdate = `http://localhost:8002/v1/address/update/${isUserid}/${isId}
+        var apiNew = `http://localhost:8002/v1/address/new/${isUserid}
 `;
-        fetch(apiUpdate, {
-            method: "PUT",
+        fetch(apiNew, {
+            method: "POST",
             headers: {
                 "Content-type": "application/json; charset=UTF-8",
             },
@@ -195,7 +195,7 @@ const ModalUpdateAddress = ({ toggleClose, data }: ModalUpdateProps) => {
                             className="mx-2 my-2 bg-yellow-900 hover:bg-yellow-500"
                             variant="default"
                             onClick={(e) =>
-                                handleUpdate({
+                                handleAdd({
                                     street: isStreet,
                                     city: isCity,
                                     phone: isPhone,
@@ -204,7 +204,7 @@ const ModalUpdateAddress = ({ toggleClose, data }: ModalUpdateProps) => {
                                 })
                             }
                         >
-                            Hoàn thành
+                            Lưu
                         </Button>
                     </div>
                 </div>
@@ -213,4 +213,4 @@ const ModalUpdateAddress = ({ toggleClose, data }: ModalUpdateProps) => {
     );
 };
 
-export default ModalUpdateAddress;
+export default ModalNewAddress;

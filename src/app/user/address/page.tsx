@@ -3,11 +3,12 @@ import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Icons } from "@/components/Icons";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ModalUpdateAddress from "@/components/ModalUpdateAddress";
+import ModalNewAddress from "@/components/ModalNewAddress";
 
 const AddressPage = () => {
-    const [id, setId] = useState(1);
+    const [idUser, setIdUser] = useState(1);
     const addres = [
         {
             id: 1,
@@ -34,51 +35,61 @@ const AddressPage = () => {
             isDefault: false,
         },
     ];
-    var api = `http://localhost:8002/v1/address/list/${id}`;
+    const [data, setData] = useState(null);
+
     useEffect(() => {
+        var api = `http://localhost:8002/v1/address/list/${idUser}`;
+
         fetch(api)
             .then(function (response) {
                 return response.json();
             })
             .then(function (address) {
-                setData(address.Data);
+                return setData(address.Data);
             })
             .catch(function (err) {
                 console.log(err);
-                setData(addres);
+                return setData(addres);
             });
-    }, [api]);
+    }, [idUser, data]);
 
-    useEffect(() => {
-        
-    })
-
-    const [data, setData] = useState();
     const [updateModal, setUpdateModal] = useState(false);
+    const [addNewModal, setAddNewModal] = useState(false);
+    const [currentInfor, setCurrentInfor] = useState({});
     const [currentElement, setCurrentElement] = useState(null);
 
-    const getInfor = (infor) => {
+    const handleGetInfor = (infor, dataForChild: object, idUser: number) => {
         var currentDiv = infor.parentElement.parentElement;
         setCurrentElement(currentDiv.id);
+        dataForChild.user = idUser;
+        setCurrentInfor(dataForChild);
+        setUpdateModal(!updateModal);
+    };
+    const getDataFromChild = (datafromChild: boolean) => {
+        setUpdateModal(datafromChild);
+    };
+    const getDataFromChildNew = (datafromChild: boolean) => {
+        setAddNewModal(datafromChild);
     };
 
-    const openModalUpdateAddress = (addr, currentElement) => {
-        if (addr.id == currentElement) {
-            console.log("id" + addr.id + "curre" + currentElement);
-            return (
-                <ModalUpdateAddress
-                    id={addr.id}
-                    name={addr.name}
-                    phone={addr.phone}
-                    street={addr.street}
-                    city={addr.city}
-                    is_default={addr.isDefault}
-                    close={updateModal}
-                />
-            );
-        } else return null;
+    const handleDelete = (dataId: number) => {
+        console.log(data);
+        var apiDelete = `delete api
+`;
+        fetch(apiDelete, {
+            method: "DELETE",
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => console.log("Delete successful:", data))
+            .catch((error) => console.error("Error deleting resource:", error));
     };
 
+    const handleDefault = (userId, addressId) => {
+
+    };
     return (
         <MaxWidthWrapper>
             <div className="mx-auto w-full  sm:py-12 xl:py-20 lg:py-20 max-w-screen-xl text-center flex flex-col items-center">
@@ -146,7 +157,10 @@ const AddressPage = () => {
                     <div className="flex-grow border border-gray-200 shadow-lg p-6 my-4 mx-8 rounded-md w-full ">
                         <div className="flex flex-row justify-between items-center border-b border-gray-400">
                             <h4 className="font-semibold">Địa chỉ của tôi</h4>
-                            <Button className="my-2 bg-yellow-900">
+                            <Button
+                                className="my-2 bg-yellow-900"
+                                onClick={() => setAddNewModal(!addNewModal)}
+                            >
                                 Thêm địa chỉ mới
                             </Button>
                         </div>
@@ -158,7 +172,7 @@ const AddressPage = () => {
                                         data.map((addr, i) => {
                                             return (
                                                 <div
-                                                    key={i}
+                                                    key={addr.id}
                                                     id={addr.id}
                                                     className="flex flex-row justify-between items-center border-b my-2 border-gray-200"
                                                 >
@@ -181,41 +195,49 @@ const AddressPage = () => {
                                                     </div>
                                                     <div className="flex flex-col">
                                                         <div>
-                                                            <Button
-                                                                variant="ghost"
-                                                                onClick={(
-                                                                    e
-                                                                ) => {
-                                                                    getInfor(
+                                                            <div>
+                                                                <Button
+                                                                    variant="ghost"
+                                                                    onClick={(
                                                                         e
-                                                                            .currentTarget
-                                                                            .parentElement
-                                                                    );
-
-                                                                    setUpdateModal(
-                                                                        true
-                                                                    );
-                                                                }}
-                                                            >
-                                                                {updateModal &&
-                                                                    openModalUpdateAddress(
-                                                                        addr,
-                                                                        currentElement
-                                                                    )}
-                                                                Cập nhật
-                                                            </Button>
+                                                                    ) => {
+                                                                        handleGetInfor(
+                                                                            e
+                                                                                .currentTarget
+                                                                                .parentElement,
+                                                                            addr,
+                                                                            idUser
+                                                                        );
+                                                                    }}
+                                                                >
+                                                                    Cập nhật
+                                                                </Button>
+                                                            </div>
                                                             {!addr.isDefault && (
-                                                                <Button variant="ghost">
+                                                                <Button
+                                                                    variant="ghost"
+                                                                    // onClick={() => {
+                                                                    //     handleDelete(
+                                                                    //         addr.id
+                                                                    //     );
+                                                                    // }}
+                                                                >
                                                                     Xóa
                                                                 </Button>
                                                             )}
                                                         </div>
-                                                        <Button
-                                                            variant="outline"
-                                                            className="mb-4 mt-2"
-                                                        >
-                                                            Thiết lập mặc định
-                                                        </Button>
+                                                        {!addr.isDefault && (
+                                                            <Button
+                                                                variant="outline"
+                                                                className="mb-4 mt-2"
+                                                                onClick={() =>
+                                                                    handleDefault
+                                                                }
+                                                            >
+                                                                Thiết lập mặc
+                                                                định
+                                                            </Button>
+                                                        )}
                                                     </div>
                                                 </div>
                                             );
@@ -225,6 +247,24 @@ const AddressPage = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div>
+                {updateModal && (
+                    <div className="">
+                        <ModalUpdateAddress
+                            toggleClose={getDataFromChild}
+                            data={currentInfor}
+                        />
+                    </div>
+                )}
+                {addNewModal && (
+                    <div className="">
+                        <ModalNewAddress
+                            toggleClose={getDataFromChildNew}
+                            data={idUser}
+                        />
+                    </div>
+                )}
             </div>
         </MaxWidthWrapper>
     );
