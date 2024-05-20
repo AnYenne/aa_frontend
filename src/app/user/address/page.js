@@ -8,7 +8,11 @@ import ModalUpdateAddress from "@/components/ModalUpdateAddress";
 import ModalNewAddress from "@/components/ModalNewAddress";
 
 const AddressPage = () => {
-    const [idUser, setIdUser] = useState(1);
+    // get idUser after login
+    // const [idUser, setIdUser] = useState(1);
+    const idUser = 1;
+    // the address backup for api
+
     const addres = [
         {
             id: 1,
@@ -35,8 +39,10 @@ const AddressPage = () => {
             isDefault: false,
         },
     ];
-    const [data, setData] = useState(null);
+    // initial data before fetch api
+    const [data, setData] = useState([]);
 
+    // fetch api from backend and set the deps are idUser and data
     useEffect(() => {
         var api = `http://localhost:8002/v1/address/list/${idUser}`;
 
@@ -51,45 +57,103 @@ const AddressPage = () => {
                 console.log(err);
                 return setData(addres);
             });
+        return () => {};
     }, [idUser, data]);
 
+    // useEffect(() => {
+    //     const t = 2;
+    //     var api = `http://localhost:8002/v1/address/list/${t}`;
+
+    //     fetch(api)
+    //         .then((response) => response.json())
+    //         .then((address) => {
+    //             console.log("adres: ", address);
+    //             setData(address.Data);
+    //         })
+    //         .catch(function (err) {
+    //             console.log("adres2: ", err);
+    //             console.log(err);
+    //             return setData(addres);
+    //         });
+    // }, [idUser, data]);
+
+    // create toggle open-close for modals
     const [updateModal, setUpdateModal] = useState(false);
     const [addNewModal, setAddNewModal] = useState(false);
     const [currentInfor, setCurrentInfor] = useState({});
     const [currentElement, setCurrentElement] = useState(null);
 
-    const handleGetInfor = (infor, dataForChild: object, idUser: number) => {
-        var currentDiv = infor.parentElement.parentElement;
-        setCurrentElement(currentDiv.id);
+    //  fn get exacly the data when the user taps on its button
+    const handleGetInfor = (infor, dataForChild, idUser) => {
+        // var currentDiv = infor.parentElement.parentElement;
+        // setCurrentElement(currentDiv.id);
         dataForChild.user = idUser;
         setCurrentInfor(dataForChild);
         setUpdateModal(!updateModal);
     };
-    const getDataFromChild = (datafromChild: boolean) => {
+
+    // transform data from child to parent to connect toggle on-off
+    const getDataFromChild = (datafromChild) => {
         setUpdateModal(datafromChild);
     };
-    const getDataFromChildNew = (datafromChild: boolean) => {
+    const getDataFromChildNew = (datafromChild) => {
         setAddNewModal(datafromChild);
     };
 
-    const handleDelete = (dataId: number) => {
-        console.log(data);
-        var apiDelete = `delete api
-`;
-        fetch(apiDelete, {
-            method: "DELETE",
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-            },
-        })
-            .then((response) => response.json())
-            .then((data) => console.log("Delete successful:", data))
-            .catch((error) => console.error("Error deleting resource:", error));
+    //     const handleDelete = (dataId: number) => {
+    //         console.log(data);
+    //         var apiDelete = `delete api
+    // `;
+    //         fetch(apiDelete, {
+    //             method: "DELETE",
+    //             headers: {
+    //                 "Content-type": "application/json; charset=UTF-8",
+    //             },
+    //         })
+    //             .then((response) => response.json())
+    //             .then((data) => console.log("Delete successful:", data))
+    //             .catch((error) => console.error("Error deleting resource:", error));
+    //     };
+
+    const handleDefault = (userId, addressId, value, listData) => {
+        const setDefault = () => {
+            var apiDefault = `http://localhost:8002/v1/address/set_default/${userId}/${addressId}`;
+            fetch(apiDefault, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                },
+                body: JSON.stringify(value),
+            })
+                .then((response) => response.json())
+                .then((data) => console.log("SetDefault successful:", data))
+                .catch((error) =>
+                    console.error("Error Set default resource:", error)
+                );
+        };
+        const handleClearDefault = (listData, newId) => {
+            for (var i = 0; i < listData.length; i++) {
+                var iD = listData[i].id;
+                if (listData[i].isDefault == "true" && iD !== newId) {
+                    listData[i].isDefault = "false";
+                }
+            }
+            var apiUpdateDefault = `http://localhost:8002/v1/address/update/${userId}/${addressId}`;
+            fetch(apiUpdateDefault, {
+                method: "PUT",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                },
+                body: JSON.stringify(value),
+            })
+                .then((response) => response.json())
+                .then((data) => console.log(" successful:", data))
+                .catch((error) =>
+                    console.error("Error  resource:", error)
+                );
+        };
     };
 
-    const handleDefault = (userId, addressId) => {
-
-    };
     return (
         <MaxWidthWrapper>
             <div className="mx-auto w-full  sm:py-12 xl:py-20 lg:py-20 max-w-screen-xl text-center flex flex-col items-center">
@@ -193,10 +257,11 @@ const AddressPage = () => {
                                                             </span>
                                                         )}
                                                     </div>
-                                                    <div className="flex flex-col">
-                                                        <div>
-                                                            <div>
+                                                    <div className="flex flex-col w-[152px] items-center justify-center">
+                                                        <div className="w-full">
+                                                            <div className="w-full">
                                                                 <Button
+                                                                    className="w-full text-center"
                                                                     variant="ghost"
                                                                     onClick={(
                                                                         e
@@ -215,6 +280,7 @@ const AddressPage = () => {
                                                             </div>
                                                             {!addr.isDefault && (
                                                                 <Button
+                                                                    className="w-full"
                                                                     variant="ghost"
                                                                     // onClick={() => {
                                                                     //     handleDelete(
@@ -228,10 +294,10 @@ const AddressPage = () => {
                                                         </div>
                                                         {!addr.isDefault && (
                                                             <Button
+                                                                className="w-full mb-4 mt-2"
                                                                 variant="outline"
-                                                                className="mb-4 mt-2"
                                                                 onClick={() =>
-                                                                    handleDefault
+                                                                    handleDefault()
                                                                 }
                                                             >
                                                                 Thiết lập mặc

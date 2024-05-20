@@ -2,14 +2,8 @@ import { Button } from "./ui/button";
 import { useEffect, useState, useRef } from "react";
 import { Icons } from "./Icons";
 import AddressPage from "@/app/user/address/page";
-import { Interface } from "readline";
 
-interface ModalUpdateProps {
-    toggleClose: any;
-    data: any;
-}
-
-const ModalUpdateAddress = ({ toggleClose, data }: ModalUpdateProps) => {
+const ModalUpdateAddress = ({ toggleClose, data }) => {
     const [animate, setAnimate] = useState("top-center");
     const [isName, setName] = useState(data.name);
     const [isPhone, setPhone] = useState(data.phone);
@@ -22,15 +16,13 @@ const ModalUpdateAddress = ({ toggleClose, data }: ModalUpdateProps) => {
     useEffect(() => {
         document.body.style.overflow = "hidden";
         setAnimate("top-center");
-        console.log(data);
 
         return () => {
             document.body.style.overflow = "auto";
-            console.log("clean up");
         };
     }, [animate]);
 
-    const handleUpdate = (data: any) => {
+    const handleUpdate = (data) => {
         console.log(data);
         var apiUpdate = `http://localhost:8002/v1/address/update/${isUserid}/${isId}
 `;

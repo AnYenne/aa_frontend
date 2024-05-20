@@ -226,7 +226,7 @@ export const Icons = {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            class="lucide lucide-list-filter"
+            className="lucide lucide-list-filter"
         >
             <path d="M3 6h18" />
             <path d="M7 12h10" />

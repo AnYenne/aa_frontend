@@ -15,6 +15,7 @@ import { ReactNode, useEffect, useRef, useState } from "react";
 import { Icons } from "./Icons";
 import test from "node:test";
 import { transform } from "next/dist/build/swc";
+import SignUpForm from "./SignUpForm";
 
 interface ModalAccountProps {
     activeModal?: boolean;
@@ -110,59 +111,9 @@ const ModalAccount = ({ activeModal, close }: ModalAccountProps) => {
                                     A&A
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="space-y-2">
-                                <div className="space-y-1  py-0.5">
-                                    <Label htmlFor="name"></Label>
-                                    <Input
-                                        id="name"
-                                        type="text"
-                                        placeholder="Họ và tên"
-                                    />
-                                </div>
-                                <div className="space-y-1 py-0.5">
-                                    <Label htmlFor="phonenumber"></Label>
-                                    <Input
-                                        id="phonenumber"
-                                        type="tel"
-                                        placeholder="Số điện thoại"
-                                    />
-                                </div>
-                                <div className="space-y-1 py-0.5">
-                                    <Label htmlFor="email"></Label>
-                                    <Input
-                                        id="email"
-                                        type="email"
-                                        placeholder="Email"
-                                    />
-                                </div>
-                                <div className="space-y-1 py-0.5">
-                                    <Label htmlFor="dateofbirth"></Label>
-                                    <Input
-                                        id="dateofbirth"
-                                        type="date"
-                                        placeholder="Ngày sinh"
-                                    />
-                                </div>
-                                <div className="space-y-1 py-0.5">
-                                    <Label htmlFor="password"></Label>
-                                    <Input
-                                        id="password"
-                                        type="password"
-                                        placeholder="Mật khẩu"
-                                    />
-                                </div>
-                                <div className="space-y-1 py-0.5">
-                                    <Label htmlFor="retypePassword"></Label>
-                                    <Input
-                                        id="retypePassword"
-                                        type="password"
-                                        placeholder="Nhập lại mật khẩu"
-                                    />
-                                </div>
-                            </CardContent>
-                            <CardFooter className="flex flex-row justify-between items-center">
-                                <Button>Đăng ký</Button>
-                            </CardFooter>
+                            <div className="w-full">
+                                <SignUpForm header="false" />
+                            </div>
                         </Card>
                     </TabsContent>
                 </Tabs>

@@ -274,7 +274,7 @@ const ProductCatalogRounded = ({
                     {children ||
                         mockApi.Data.data.map((product) => {
                             return (
-                                <li className="">
+                                <li className="cursor-pointer">
                                     <ProductCardPrice
                                         size={size}
                                         id={product.id}

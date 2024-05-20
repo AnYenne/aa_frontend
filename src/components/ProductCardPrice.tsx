@@ -22,7 +22,7 @@ const ProductCardPrice = ({
     return (
         <div
             className={cn(
-                `flex flex-col justify-center items-stretch max-w-60 rounded-md min-w-[60px]  ml-0 m-2 w-full bg-gradient-to-b from-transparent to-slate-100 bg-opacity-30 `,
+                `flex flex-col justify-center items-stretch max-w-60 rounded-md min-w-[60px]  ml-0 m-2 w-full bg-gradient-to-b from-transparent to-slate-100 bg-opacity-30 cursor-pointer`,
                 size
             )}
         >

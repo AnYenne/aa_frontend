@@ -1,6 +1,5 @@
 import Image from "next/image";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import Link from "next/link";
 import { buttonVariants, Button } from "@/components/ui/button";
 import SlideShow from "@/components/SlideShow";
 import NewProductSection from "@/components/NewProductSection";

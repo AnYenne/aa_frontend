@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/ModalNewAddress.js", "src/components/ModalUpdateAddress.js", "src/app/user/address/page.js", "src/app/detail/page.js", "src/components/ExpandMenu.js", "src/app/signup/page.tsx", "next.config.js"],
   "exclude": ["node_modules"]
 }

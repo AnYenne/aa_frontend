@@ -1,44 +1,78 @@
+"use client";
+
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Button } from "@/components/ui/button";
 import ProductCatalogRounded from "@/components/ProductCatalogRounded";
 import ExpandMenu from "@/components/ExpandMenu";
+import { useState } from "react";
+import ModalAddToCart from "@/components/ModalAddToCart";
 
 function ProductDetailPage() {
+    const listImages = [
+        {
+            no: 1,
+            src: "https://lili.vn/wp-content/uploads/2021/12/Day-chuyen-bac-nu-phong-cach-co-trang-CZ-LILI_831944_2-400x400.jpg",
+        },
+        {
+            no: 2,
+            src: "https://lili.vn/wp-content/uploads/2022/07/Nhan-bac-nu-dinh-kim-cuong-Moissanite-Aidan-LILI_335168_4-400x400.jpg",
+        },
+        {
+            no: 3,
+            src: "https://lili.vn/wp-content/uploads/2022/07/Nhan-bac-nu-dinh-kim-cuong-Moissanite-Aidan-LILI_335168_4-400x400.jpg",
+        },
+    ];
+
+    const [quantity, setQuantity] = useState(1);
+    const [imageProduct, setImageProduct] = useState(1);
+    var limitQuantity = 20;
+    const quantityUp = (now) => {
+        if (now < limitQuantity) {
+            setQuantity((now) => now + 1);
+        }
+        if (now == limitQuantity) {
+            setQuantity(now);
+        }
+    };
+    const quantityDown = (now) => {
+        if (now <= 1) {
+            setQuantity(now);
+        }
+        if (now > 1) {
+            setQuantity((now) => now - 1);
+        }
+    };
     return (
         <MaxWidthWrapper>
-            <div className="mx-auto w-full sm:py-12 xl:py-20 lg:py-20 max-w-screen-xl">
+            <ModalAddToCart />
+            {/* <div className="mx-auto w-full sm:py-12 xl:py-20 lg:py-20 max-w-screen-xl">
                 <div className="border-b">breadcumb</div>
 
-                <div className="flex flex-row w-full">
-                    <div className="w-3/5 flex flex-row items-start justify-center">
-                        <div className="flex flex-col w-[100px]">
-                            <div>
-                                <img
-                                    className="w-[60px] rounded-sm my-1 "
-                                    src="https://lili.vn/wp-content/uploads/2021/12/Day-chuyen-bac-nu-phong-cach-co-trang-CZ-LILI_831944_2-400x400.jpg"
-                                />
-                            </div>
-                            <div>
-                                <img
-                                    className="w-[60px] rounded-sm my-1"
-                                    src="https://lili.vn/wp-content/uploads/2022/07/Nhan-bac-nu-dinh-kim-cuong-Moissanite-Aidan-LILI_335168_4-400x400.jpg"
-                                />
-                            </div>
-                            <div>
-                                <img
-                                    className="w-[60px] rounded-sm my-1"
-                                    src="https://lili.vn/wp-content/uploads/2022/07/Nhan-bac-nu-dinh-kim-cuong-Moissanite-Aidan-LILI_335168_4-400x400.jpg"
-                                />
-                            </div>
+                <div className="w-full h-fit flex items-start ">
+                    <div className="bg-white w-3/5 flex">
+                        <div className="w-16 lg:mr-4 ">
+                            {listImages.map((image) => {
+                                return (
+                                    <img
+                                        key={image.no}
+                                        className=" rounded-sm  my-2 cursor-pointer"
+                                        onClick={() =>
+                                            setImageProduct(image.no)
+                                        }
+                                        src={image.src}
+                                    />
+                                );
+                            })}
                         </div>
-                        <div className="rounded-lg w-[500px] overflow-hidden lg:-ml-6">
+                        <div className="flex-grow rounded-3xl overflow-hidden">
                             <img
-                                className="w-full"
-                                src="https://lili.vn/wp-content/uploads/2021/12/Day-chuyen-bac-nu-phong-cach-co-trang-CZ-LILI_831944_2-400x400.jpg"
+                                className="w-full rounded-3xl"
+                                src={listImages[imageProduct - 1].src}
                             />
                         </div>
                     </div>
-                    <div className="flex-grow -mx-2 lg:w-[514px]">
+
+                    <div className="w-2/5 pl-4 py-4 bg-white flex flex-col justify-start items-start">
                         <h2 className="font-bold text-lg border-b pb-2">
                             Title của sản phẩm
                         </h2>
@@ -57,7 +91,7 @@ function ProductDetailPage() {
                             ></img>
                         </div>
 
-                        <div className="w-full overflow-hidden max-h-[50px]">
+                        <div className=" min-h-[50px]">
                             <p>
                                 Chi tiết sản phẩm: Bạn sẽ không chỉ thêm phần
                                 xinh xắn và thanh lịch khi diện em dây chuyền
@@ -73,11 +107,25 @@ function ProductDetailPage() {
                             </p>
                         </div>
 
-                        <div>
-                            <div>
-                                <input type="button" value="-" />
-                                <input type="number" value="1" />
-                                <input type="button" value="+" />
+                        <div className="bg-white lg:flex justify-between items-center ">
+                            <div className="flex content-center items-center m-2">
+                                <input
+                                    className="w-[50px]  bg-slate-400 text-slate-800 rounded h-[50px] cursor-pointer"
+                                    type="button"
+                                    value="-"
+                                    onClick={() => quantityDown(quantity)}
+                                />
+                                <input
+                                    className="w-[100px] text-center cursor-pointer outline-none"
+                                    type="text"
+                                    value={quantity}
+                                />
+                                <input
+                                    className="w-[50px] bg-slate-400 text-slate-800 rounded h-[50px] cursor-pointer"
+                                    type="button"
+                                    value="+"
+                                    onClick={() => quantityUp(quantity)}
+                                />
                             </div>
                             <Button className="ghost rounded-3xl w-1/2 text-xl m-2 bg-red-900 hover:bg-red-600">
                                 Mua ngay
@@ -198,14 +246,14 @@ function ProductDetailPage() {
                         khi đến cửa hàng.
                     </ExpandMenu>
                 </div>
-                <div>đánh giá sản phẩm</div>
+                <div> đánh giá sản phẩm</div>
                 <div className="mt-8">
                     <ProductCatalogRounded
                         size="w-60"
                         title="Có thể bạn sẽ thích"
                     ></ProductCatalogRounded>
                 </div>
-            </div>
+            </div> */}
         </MaxWidthWrapper>
     );
 }

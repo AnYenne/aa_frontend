@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 
 import { useEffect, useRef, useState } from "react";
+import SignUpForm from "@/components/SignUpForm";
 
 const Signup = () => {
     const [signEmail, setSignEmail] = useState(false);
@@ -14,6 +15,14 @@ const Signup = () => {
     const emailBtn = useRef();
     const otherBtn = useRef();
     const backBtn = useRef();
+    // const [Name, setName] = useState("");
+    // const [Email, setEmail] = useState("");
+    // const [Sex, setSex] = useState("");
+    // const [Password, setPassword] = useState("");
+    // const [ConfirmPass, setConfirmPass] = useState("");
+    // const [PhoneNum, setPhoneNum] = useState("");
+    // const [DateOfBirth, setDateOfBirth] = useState("");
+
     useEffect(() => {
         const handleEmail = (e: MouseEvent) => {
             setSignEmail(true);
@@ -55,6 +64,7 @@ const Signup = () => {
                 backBtn.current.removeEventListener("click", handleBack);
         };
     });
+
     return (
         <MaxWidthWrapper>
             <div className="mx-auto w-full  sm:py-12 xl:py-20 lg:py-20 max-w-screen-xl text-center flex flex-col items-center">
@@ -181,119 +191,7 @@ const Signup = () => {
                             )}
                             {signEmail && (
                                 <>
-                                    <div
-                                        className="absolute top-6 -left-12 "
-                                        ref={backBtn}
-                                    >
-                                        <Button className="rounded-full py-4 px-2">
-                                            <Icons.arrowLeft />
-                                        </Button>
-                                    </div>
-                                    <div className="text-center h-full w-full  mb-6 ">
-                                        <h3 className="text-yellow-900 text-4xl font-bold capitalize">
-                                            Tạo tài khoản tại A&A
-                                        </h3>
-                                    </div>
-                                    <div className="flex flex-col w-full my-2 items-center">
-                                        <div className="space-y-2 w-3/4">
-                                            <div className="space-y-1  py-0.5">
-                                                <Label htmlFor="name"></Label>
-                                                <Input
-                                                    id="name"
-                                                    type="text"
-                                                    placeholder="Họ và tên"
-                                                />
-                                            </div>
-                                            <div className="space-y-1 py-0.5 flex flex-row justify-between items-center">
-                                                <form className="flex flex-row  ">
-                                                    <input
-                                                        type="radio"
-                                                        id="male"
-                                                        name="fav_language"
-                                                        value="male"
-                                                        className="cursor-pointer"
-                                                    />
-                                                    <label
-                                                        htmlFor="male"
-                                                        className="mr-6 ml-2"
-                                                    >
-                                                        Nam
-                                                    </label>
-                                                    <input
-                                                        type="radio"
-                                                        id="female"
-                                                        name="fav_language"
-                                                        value="female"
-                                                        className="cursor-pointer"
-                                                    />
-
-                                                    <label
-                                                        htmlFor="female"
-                                                        className="mr-6 ml-2"
-                                                    >
-                                                        Nữ
-                                                    </label>
-                                                    <input
-                                                        type="radio"
-                                                        id="other"
-                                                        name="fav_language"
-                                                        value="other"
-                                                        className="cursor-pointer"
-                                                    />
-                                                    <label
-                                                        htmlFor="other"
-                                                        className="mr-6 ml-2"
-                                                    >
-                                                        Khác
-                                                    </label>
-                                                </form>
-                                            </div>
-                                            <div className="space-y-1 py-0.5">
-                                                <Label htmlFor="phonenumber"></Label>
-                                                <Input
-                                                    id="phonenumber"
-                                                    type="tel"
-                                                    placeholder="Số điện thoại"
-                                                />
-                                            </div>
-
-                                            <div className="space-y-1 py-0.5">
-                                                <Label htmlFor="email"></Label>
-                                                <Input
-                                                    id="email"
-                                                    type="email"
-                                                    placeholder="Email"
-                                                />
-                                            </div>
-                                            <div className="space-y-1 py-0.5">
-                                                <Label htmlFor="dateofbirth"></Label>
-                                                <Input
-                                                    id="dateofbirth"
-                                                    type="date"
-                                                    placeholder="Ngày sinh"
-                                                />
-                                            </div>
-                                            <div className="space-y-1 py-0.5">
-                                                <Label htmlFor="password"></Label>
-                                                <Input
-                                                    id="password"
-                                                    type="password"
-                                                    placeholder="Mật khẩu"
-                                                />
-                                            </div>
-                                            <div className="space-y-1 py-0.5">
-                                                <Label htmlFor="retypePassword"></Label>
-                                                <Input
-                                                    id="retypePassword"
-                                                    type="password"
-                                                    placeholder="Nhập lại mật khẩu"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div className="flex flex-row justify-between items-center w-3/4 my-6">
-                                            <Button>Đăng ký</Button>
-                                        </div>
-                                    </div>
+                                    <SignUpForm header="true"></SignUpForm>
                                 </>
                             )}
                         </div>
