@@ -4,6 +4,7 @@ import { Icons } from "./Icons";
 import ModalAccount from "./ModalAccount";
 import { Button } from "./ui/button";
 import { PcCaseIcon } from "lucide-react";
+import Link from "next/link";
 
 interface NavItemProps {}
 
@@ -48,7 +49,9 @@ function NavItem({}: NavItemProps) {
                     <Button className="-mr-4" variant="ghost">
                         <div className="flex flex-col items-center">
                             <Icons.cart />
-                            <p className="text-xs">Giỏ hàng (100)</p>
+                            <Link href="/cart">
+                                <p className="text-xs">Giỏ hàng (100)</p>
+                            </Link>
                         </div>
                     </Button>
                 </div>

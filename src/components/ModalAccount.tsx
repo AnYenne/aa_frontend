@@ -16,6 +16,7 @@ import { Icons } from "./Icons";
 import test from "node:test";
 import { transform } from "next/dist/build/swc";
 import SignUpForm from "./SignUpForm";
+import SigninForm from "./SigninForm";
 
 interface ModalAccountProps {
     activeModal?: boolean;
@@ -76,7 +77,7 @@ const ModalAccount = ({ activeModal, close }: ModalAccountProps) => {
                                     Đăng nhập tài khoản của bạn tại đây
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="space-y-2">
+                            {/* <CardContent className="space-y-2">
                                 <div className="space-y-1 py-0.5 ">
                                     <Label htmlFor="username"></Label>
                                     <Input
@@ -95,11 +96,8 @@ const ModalAccount = ({ activeModal, close }: ModalAccountProps) => {
                                         placeholder="Nhập mật khẩu"
                                     />
                                 </div>
-                            </CardContent>
-                            <CardFooter className="">
-                                <Button className="">Đăng Nhập</Button>
-                                <Button variant="ghost">quên mật khẩu</Button>
-                            </CardFooter>
+                            </CardContent> */}
+                            <SigninForm />
                         </Card>
                     </TabsContent>
                     <TabsContent value="signUp">

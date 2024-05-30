@@ -1,5 +1,3 @@
-"use client";
-
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 
 import { Input } from "@/components/ui/input";
@@ -9,37 +7,11 @@ import { Icons } from "@/components/Icons";
 import { useEffect, useRef, useState } from "react";
 import Validation from "@/components//Validate";
 import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import SigninForm from "./SigninForm";
 
 const Login = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const form = useRef();
-    console.log(username, password);
-
-    useEffect(() => {
-        const handleLogin = async () => {
-            try {
-                const response = await axios.post(
-                    "http://localhost:8002/v1/auth/login",
-                    {
-                        username,
-                        password,
-                    }
-                );
-
-                // Xử lý response từ server, ví dụ: lưu token vào local storage.
-                console.log(response.data);
-            } catch (error) {
-                // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi.
-                console.error("Login failed", error);
-            }
-        };
-    });
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
-
     return (
         <MaxWidthWrapper>
             <div className="mx-auto w-full  sm:py-12 xl:py-20 lg:py-20 max-w-screen-xl text-center flex flex-col items-center">
@@ -61,58 +33,9 @@ const Login = () => {
                             </div>
 
                             <div className="w-full flex flex-col justify-center">
-                                <form id="form-1" ref={form}>
-                                    <div className="form-group ">
-                                        <div className="form__data space-y-2 py-1  flex flex-col items-start justify-center w-full ">
-                                            <Label
-                                                htmlFor="username"
-                                                className="text-lg"
-                                            >
-                                                Số điện thoại hoặc email
-                                            </Label>
-                                            <Input
-                                                id="username"
-                                                onChange={(e) =>
-                                                    setUsername(e.target.value)
-                                                }
-                                                value={username}
-                                                type="text"
-                                                className="py-6 rounded-lg focus-visible:outline-red-100  hover:border-red-300"
-                                            />
-                                        </div>
-                                        <div className="form-message"></div>
-                                    </div>
-                                    <div className="form-group mt-4">
-                                        <div className="form__data space-y-2 py-1  flex flex-col items-start justify-center w-full ">
-                                            <Label
-                                                htmlFor="password"
-                                                className="text-lg "
-                                            >
-                                                Mật khẩu
-                                            </Label>
-                                            <Input
-                                                id="password"
-                                                onChange={(e) =>
-                                                    setPassword(e.target.value)
-                                                }
-                                                value={password}
-                                                type="password"
-                                                className="py-6 rounded-lg focus-visible:outline-red-100 hover:border-red-300 "
-                                            />
-                                        </div>
-                                        <div className="form-message"></div>
-                                    </div>
-                                </form>
+                                <SigninForm />
                             </div>
-                            <div className="flex flex-row justify-between items-center my-6">
-                                <Button
-                                    className=""
-                                    onClick={() => handleSubmit()}
-                                >
-                                    Đăng Nhập
-                                </Button>
-                                <Button variant="ghost">quên mật khẩu</Button>
-                            </div>
+
                             <div className="flex items-center justify-center space-x-2">
                                 <div className="bg-gray-300 h-px flex-1"></div>
                                 <span className="text-gray-500 text-sm px-2">
