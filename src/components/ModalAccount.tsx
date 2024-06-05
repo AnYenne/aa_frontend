@@ -55,23 +55,23 @@ const ModalAccount = ({ activeModal, close }: ModalAccountProps) => {
                     </div>
                 </div>
                 <Tabs defaultValue="signIn" className="w-[500px]">
-                    <TabsList className="grid w-full h-full grid-cols-2 ">
+                    <TabsList className="grid w-full h-full grid-cols-2">
                         <TabsTrigger
-                            className="text-xl font-Bold"
+                            className="text-xl font-Bold "
                             value="signIn"
                         >
                             Đăng Nhập
                         </TabsTrigger>
                         <TabsTrigger
-                            className="text-xl font-Bold"
+                            className="text-xl font-Bold "
                             value="signUp"
                         >
                             Đăng ký
                         </TabsTrigger>
                     </TabsList>
-                    <TabsContent value="signIn">
-                        <Card>
-                            <CardHeader>
+                    <TabsContent value="signIn" >
+                        <Card >
+                            <CardHeader >
                                 <CardTitle></CardTitle>
                                 <CardDescription>
                                     Đăng nhập tài khoản của bạn tại đây

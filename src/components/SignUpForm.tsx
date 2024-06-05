@@ -81,7 +81,7 @@ export default function SignUpForm(props) {
             <div className="flex flex-col w-full my-2 items-center">
                 <form
                     onSubmit={formik.handleSubmit}
-                    className="space-y-2 px-6 w-full"
+                    className="space-y-2 px-6 w-full text-yellow-600"
                 >
                     <div className="">
                         <div className="space-y-1  py-0.5">
@@ -226,9 +226,9 @@ export default function SignUpForm(props) {
                             </div>
                         )}
                     </div>
-                    <div className="">
-                        <Button>
-                            <button type="submit">Đăng ký</button>
+                    <div >
+                        <Button className="bg-yellow-600">
+                            <button type="submit" >Đăng ký</button>
                         </Button>
                     </div>
                 </form>

@@ -50,7 +50,7 @@ export default function SigninForm() {
             <form id="form-1" className="px-6" onSubmit={formik.handleSubmit}>
                 <div className="form-group">
                     <div className="form__data space-y-2 py-1  flex flex-col items-start justify-center w-full ">
-                        <Label htmlFor="username" className="text-lg">
+                        <Label htmlFor="username" className="text-lg text-yellow-600">
                             Số điện thoại hoặc email
                         </Label>
                         <Input
@@ -70,7 +70,7 @@ export default function SigninForm() {
                 </div>
                 <div className="form-group mt-4">
                     <div className="form__data space-y-2 py-1  flex flex-col items-start justify-center w-full ">
-                        <Label htmlFor="password" className="text-lg ">
+                        <Label htmlFor="password" className="text-lg text-yellow-600">
                             Mật khẩu
                         </Label>
                         <Input
@@ -90,7 +90,7 @@ export default function SigninForm() {
                 </div>
                 <div className="flex flex-row justify-between items-center">
                     <Button
-                        className="flex flex-row justify-between items-center my-6"
+                        className="flex flex-row justify-between items-center my-6 bg-yellow-600"
                         type="submit"
                     >
                         Đăng Nhập
