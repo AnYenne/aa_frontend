@@ -77,26 +77,7 @@ const ModalAccount = ({ activeModal, close }: ModalAccountProps) => {
                                     Đăng nhập tài khoản của bạn tại đây
                                 </CardDescription>
                             </CardHeader>
-                            {/* <CardContent className="space-y-2">
-                                <div className="space-y-1 py-0.5 ">
-                                    <Label htmlFor="username"></Label>
-                                    <Input
-                                        id="username"
-                                        defaultValue=""
-                                        placeholder="Nhập số điện thoại / email"
-                                        type="text"
-                                    />
-                                </div>
-                                <div className="space-y-1 py-0.5 ">
-                                    <Label htmlFor="password"></Label>
-                                    <Input
-                                        id="password"
-                                        defaultValue=""
-                                        type="password"
-                                        placeholder="Nhập mật khẩu"
-                                    />
-                                </div>
-                            </CardContent> */}
+                            
                             <SigninForm />
                         </Card>
                     </TabsContent>

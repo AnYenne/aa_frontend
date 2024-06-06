@@ -7,7 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
-
+import axios from "axios";
+import Link from "next/link"; 
+import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from "react";
 
 export default function SignUpForm(props) {
@@ -16,6 +18,9 @@ export default function SignUpForm(props) {
     const emailBtn = useRef();
     const otherBtn = useRef();
     const backBtn = useRef();
+    const [errorFromAPi, setErrorFromApi] = useState('')
+    const router = useRouter();
+    
 
     const formik = useFormik({
         initialValues: {
@@ -63,7 +68,43 @@ export default function SignUpForm(props) {
             console.log(values);
         },
     });
+    const postApiSignUp =()=>{
+        axios.post('http://localhost:8001/v1/auth/register', {
+            name: `${formik.values.name}`,
+            password: `${formik.values.password}`,
+            phone: `${formik.values.phone}`,
+            email: `${formik.values.email}`,
+            gender: `${formik.values.gender}`,
+            dob: `${formik.values.dob}`,
+            })
+            .then(response =>{
+                console.log(response.data)
+                switch(response.data.code){
+                    case 409:
+                        // console.log('409',response.data.message)
+                        setErrorFromApi(response.data.message)
+                        break;
+                    case 201:
+                        console.log('201',response.data.message)
+                        setErrorFromApi('')
 
+                        return  router.push('/signup/successfully') 
+                }
+
+            })
+            
+            .catch(error => {
+                console.log(error.message)
+            })
+    }
+
+    const handleSignUp = () =>{
+        if(JSON.stringify(formik.errors) === "{}"){
+            postApiSignUp()
+        } else {
+            console.log(formik.errors)
+        }
+    }
     return (
         <div>
             <div className="absolute top-6 -left-12 " ref={backBtn}>
@@ -103,27 +144,27 @@ export default function SignUpForm(props) {
                             <form className="flex flex-row  ">
                                 <input
                                     type="radio"
-                                    id="male"
+                                    id="NAM"
                                     name="gender"
-                                    value="male"
+                                    value="NAM"
                                     className="cursor-pointer"
-                                    checked={formik.values.gender == "male"}
+                                    checked={formik.values.gender == "NAM"}
                                     onChange={formik.handleChange}
                                 />
-                                <label htmlFor="male" className="mr-6 ml-2">
+                                <label htmlFor="NAM" className="mr-6 ml-2">
                                     Nam
                                 </label>
                                 <input
                                     type="radio"
-                                    id="female"
+                                    id="NU"
                                     name="gender"
-                                    value="female"
+                                    value="NU"
                                     className="cursor-pointer"
-                                    checked={formik.values.gender == "female"}
+                                    checked={formik.values.gender == "NU"}
                                     onChange={formik.handleChange}
                                 />
 
-                                <label htmlFor="female" className="mr-6 ml-2">
+                                <label htmlFor="NU" className="mr-6 ml-2">
                                     Nữ
                                 </label>
                                 <input
@@ -172,9 +213,9 @@ export default function SignUpForm(props) {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        {formik.errors.email && (
+                        {formik.errors.email ||errorFromAPi && (
                             <div className="text-red-600 items-start flex flex-row">
-                                {formik.errors.email}
+                                {formik.errors.email || errorFromAPi}
                             </div>
                         )}
 
@@ -227,9 +268,15 @@ export default function SignUpForm(props) {
                         )}
                     </div>
                     <div >
-                        <Button className="bg-yellow-600">
-                            <button type="submit" >Đăng ký</button>
-                        </Button>
+                        {JSON.stringify(formik.errors) === "{}" ?
+                        (<Button type="submit"  className="bg-yellow-600" onClick={handleSignUp}>
+                            <button type="buton" >Đăng ký</button>
+                        </Button>)
+                        : 
+                        (<Button type="submit" disabled className="bg-yellow-600 disabled:opacity-50" >
+                            <button type="buton" >Đăng ký</button>
+                        </Button>)
+                        }
                     </div>
                 </form>
             </div>

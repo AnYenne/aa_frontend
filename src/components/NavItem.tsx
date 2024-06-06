@@ -106,12 +106,12 @@ function NavItem({}: NavItemProps) {
                    
 
                     <Button className="-mr-4" variant="ghost">
-                        <div className="flex flex-col items-center">
+                        <Link href="/cart">
+                          <div className="flex flex-col items-center">
                             <Icons.cart />
-                            <Link href="/cart">
                                 <p className="text-xs">Giỏ hàng {!authorize && quantity }</p>
-                            </Link>
-                        </div>
+                          </div> 
+                        </Link>
                     </Button>
                 </div>
             </div>

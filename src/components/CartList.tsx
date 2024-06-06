@@ -1,9 +1,13 @@
 'use client'
 import ItemsCartList from "./ItemsCart"
 import MaxWidthWrapper from "./MaxWidthWrapper"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 const CartList = () => {
     const [count, setCount]= useState(0)
+    useEffect((
+    )=>{
+        fetch('')
+    }, [count])
     return (
         <MaxWidthWrapper>
             <div className="bg-gray-200 w-full h-full">
@@ -14,9 +18,9 @@ const CartList = () => {
                             <h2>Shopping Bag</h2>
                             <h4>{count} <span>{count > 2 ? 'items' : 'item'}</span> in your bag</h4>
                         </div>
-                        <div className="">
-                           
-                            <ItemsCartList number="1"/>
+                        <div className="rounded-2xl bg-white flex flex-col">
+                            <ItemsCartList titleNumber="1"/>
+                            
                         </div>
                     </div>
                     {/* list for checkout */}
