@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/Icons";
 import axios from "axios";
 import Link from "next/link"; 
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from "react";
 
 export default function SignUpForm(props) {
@@ -88,7 +88,7 @@ export default function SignUpForm(props) {
                         console.log('201',response.data.message)
                         setErrorFromApi('')
 
-                        return  router.push('/signup/successfully') 
+                        return  router.push('/signup/successfully')
                 }
 
             })
