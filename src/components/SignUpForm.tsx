@@ -224,7 +224,7 @@ export default function SignUpForm(props) {
                             <Input
                                 id="dob"
                                 type="date"
-                                placeholder="Ngày sinh"
+                                placeholder="dd-mm-yyyy"
                                 value={formik.values.dob}
                                 onChange={formik.handleChange}
                             />

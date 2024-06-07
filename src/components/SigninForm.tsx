@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
     Card,
     CardContent,
@@ -17,7 +17,11 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export default function SigninForm() {
+    const [accessToken, setAccessToken] = useState('')
+    const [refreshToken, setRefreshToken] = useState('')
+    const [iduser, setIduser] = useState(0)
 
+    // formik for check valid form 
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -28,21 +32,74 @@ export default function SigninForm() {
             password: Yup.string().required("required"),
         }),
         onSubmit: (values) => {
-            console.log(values);
         },
     });
-    const handleLogin = async () => {
+    const fetcherGetMyProfile = async (accesstoken, iduser) => {
         try {
-            const response = await axios.post(
-                "http://localhost:8001/v1/auth/login",
-                formik.initialValues
+            const response = await axios(
+                `http://localhost:8001/v1/user/detail/${iduser}`, {
+                    method: "Get",
+                    headers: {Authorization: "Bearer" + accesstoken}
+                }
             );
+            return response
+        }
+        catch(err){
+            return err
+        }
+    }
+    
 
-            // Xử lý response từ server, ví dụ: lưu token vào local storage.
-            console.log(response.data);
-        } catch (error) {
-            // Xử lý lỗi, ví dụ: hiển thị thông báo lỗi.
-            console.error("Login failed", error);
+    // send api to get accessToken
+    const postApiSignIn = () => {
+        axios.post('http://localhost:8001/v1/auth/login',{
+            email: `${formik.values.email}`,
+            password: `${formik.values.password}`,
+        })
+        .then(response => {
+            console.log(response.data)
+            switch(response.data.code){
+                case 200:
+                    setAccessToken(response.data.data.accessToken)
+                    setIduser(response.data.data.id)
+                    setRefreshToken(response.data.data.refreshToken)
+                    break;
+                case 400:
+                    console.log(response.data.message)
+                    setAccessToken('')
+                    setIduser(0)
+                    setRefreshToken('')
+                    break;
+                case 500:
+                    console.log("network error")
+            }
+
+        })
+        .catch(error=>{
+            console.log(error.message)
+        })
+    }
+    // functions for save token
+    const saveTokenToLocalStorage = (token) =>{
+        localStorage.setItem('accessToken', token);
+    }
+    const getTokenFromLocalStorage = () => {
+        return localStorage.getItem('accessToken');
+    }
+    const removeTokenFromLocalStorage = () => {
+        return localStorage.removeItem('accessToken');
+    }
+    if(accessToken !== ''){
+        saveTokenToLocalStorage(accessToken);
+    }
+    
+    
+    
+    const handleLogin = async () => {
+        if(JSON.stringify(formik.errors) === "{}"){
+            postApiSignIn()
+        } else {
+            console.log(formik.errors)
         }
     };
     useEffect(() => {

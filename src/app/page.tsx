@@ -943,7 +943,9 @@ export default function Home() {
     return (
         <MaxWidthWrapper>
             <div className="mx-auto w-full  sm:py-12 xl:py-20 lg:py-20 max-w-screen-xl text-center flex flex-col items-center ">
+                {/* slide show hero image */}
                 <SlideShow />
+                {/* line flash sale */}
                 <NewProductSection />
                 <ProductCatalogRounded
                     size="w-60"
